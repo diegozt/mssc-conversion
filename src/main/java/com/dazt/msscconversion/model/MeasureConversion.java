@@ -31,5 +31,5 @@ public class MeasureConversion extends BaseEntity {
 
     @Column(precision = 19, scale = 5)
     private BigDecimal conversionFactor;
-
+    
 }

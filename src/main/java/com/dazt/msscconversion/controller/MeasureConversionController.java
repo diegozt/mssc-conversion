@@ -7,6 +7,8 @@ import com.dazt.msscconversion.service.MeasureConversionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MeasureConversionController {
 
+    @Autowired
+    Environment environment;
+
     private final MeasureConversionMapper measureConversionMapper;
 
     private final MeasureConversionService measureConversionService;
@@ -26,8 +31,10 @@ public class MeasureConversionController {
             @PathVariable String from,
             @PathVariable String to) {
 
-        return measureConversionMapper.measureConversionToMeasureConversionDto(
+        MeasureConversionDTO dto =measureConversionMapper.measureConversionToMeasureConversionDto(
                 measureConversionService.findByFromAndTo(from, to));
+        dto.setHostPort(environment.getProperty("local.server.port"));
+        return dto;
     }
 
 }

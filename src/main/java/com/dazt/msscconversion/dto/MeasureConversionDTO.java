@@ -20,6 +20,8 @@ public class MeasureConversionDTO {
 
     private String environment;
 
+    private String hostPort;
+
     private OffsetDateTime lastUpdatedDate;
 
     private OffsetDateTime creationDate;
